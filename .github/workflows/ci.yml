@@ -2,12 +2,12 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  build-and-test:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,3 +24,10 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Build application
+        run: npm run build
+
+      - name: Deploy (simulation)
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploying application to production..."
